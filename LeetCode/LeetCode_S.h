@@ -60,5 +60,6 @@ public:
 	int strStr1(string haystack, string needle);
 	string shortestPalindrome(string s);
 	vector<int> commputeNext(string pattern);
+	ListNode* reverseBetween(ListNode* head, int m, int n);
 };
 

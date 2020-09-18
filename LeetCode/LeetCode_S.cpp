@@ -1207,6 +1207,41 @@ std::vector<int> CLeetCode_Solution::commputeNext(string pattern)
 
 }
 
+ListNode* CLeetCode_Solution::reverseBetween(ListNode* head, int m, int n)
+{
+	//假定head为 1 2 3 4 5, m为2,n为4
+   	if (m == n || head == NULL || head->next == NULL)
+		return head;
+
+	//为了适配M为1的情况，设定定个-1节点，-1节点的next为原链表的head
+	ListNode* first = new ListNode(-1);
+	first->next = head;
+	ListNode* preH = first;//preH作为锚(返回值),指向原链表的head,
+
+	int index = 1;
+	while (index++ < m)	{
+		first = first->next;
+	}
+	ListNode* preM = first;
+
+	ListNode* pre = NULL;//相对准备反转的一部分链表,pre为-1节点,循环结束后,为反转后的小段链表的head
+	ListNode* cur = first->next;//cur为第一个要反转的节点,循环结束后,为原链表的后部分的head
+	//依然使用PreS作为第一个反转的锚,当下面的循环结束后,preS也是要反转部分链表的的最后一个节点
+	ListNode* preS = cur;
+	
+	while (index++ <= n + 1)
+	{
+		ListNode* tmp = cur->next;
+		cur->next = pre;
+		pre = cur;
+		cur = tmp;
+	}
+	first->next = pre;
+	preS->next = cur;
+
+	return preH->next;   
+}
+
 bool isPalindrome(ListNode* head) {
 	if (head == NULL || head->next == NULL)
 		return true;
